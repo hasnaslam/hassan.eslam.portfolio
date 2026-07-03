@@ -172,24 +172,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. Lenis Smooth Scroll
     const lenis = new Lenis({
-        duration: 1.2,
+        duration: 0.8,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // https://www.desmos.com/calculator/brs54l4xou
         direction: 'vertical',
         gestureDirection: 'vertical',
         smooth: true,
-        mouseMultiplier: 1,
+        mouseMultiplier: 1.5,
         smoothTouch: false,
         touchMultiplier: 2,
         infinite: false,
     });
 
-    function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
+    // Sync GSAP with Lenis to avoid double raf calls and extreme lag
+    lenis.on('scroll', ScrollTrigger.update);
 
-    // Sync GSAP with Lenis
     gsap.ticker.add((time) => {
         lenis.raf(time * 1000);
     });
