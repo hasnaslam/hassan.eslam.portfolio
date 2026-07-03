@@ -247,11 +247,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     "random": true,
                     "anim": { "enable": false }
                 },
-                "line_linked": { "enable": false },
+                "line_linked": { 
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#d4af37",
+                    "opacity": 0.4,
+                    "width": 1
+                },
                 "move": {
                     "enable": true,
                     "speed": 1,
-                    "direction": "top",
+                    "direction": "none",
                     "random": true,
                     "straight": false,
                     "out_mode": "out",
@@ -262,12 +268,14 @@ document.addEventListener('DOMContentLoaded', () => {
             "interactivity": {
                 "detect_on": "canvas",
                 "events": {
-                    "onhover": { "enable": true, "mode": "bubble" },
-                    "onclick": { "enable": false },
+                    "onhover": { "enable": true, "mode": "grab" },
+                    "onclick": { "enable": true, "mode": "push" },
                     "resize": true
                 },
                 "modes": {
-                    "bubble": { "distance": 200, "size": 6, "duration": 2, "opacity": 0.8, "speed": 3 }
+                    "grab": { "distance": 180, "line_linked": { "opacity": 1 } },
+                    "bubble": { "distance": 200, "size": 6, "duration": 2, "opacity": 0.8, "speed": 3 },
+                    "push": { "particles_nb": 4 }
                 }
             },
             "retina_detect": true
