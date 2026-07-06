@@ -1,0 +1,146 @@
+/* Hero Section Styles */
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.particles-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+  opacity: 0.2;
+}
+
+.hero-container {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 5rem;
+}
+
+.hero-badge {
+  padding: 0.5rem 1.5rem;
+  margin-bottom: 2rem;
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.hero-greeting {
+  font-size: 1.5rem;
+  color: #9ca3af;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+@media (min-width: 768px) {
+  .hero-greeting { font-size: 1.875rem; }
+}
+
+.hero-title {
+  font-size: 3.75rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+@media (min-width: 768px) {
+  .hero-title { font-size: 6rem; }
+}
+@media (min-width: 1024px) {
+  .hero-title { font-size: 8rem; }
+}
+
+.hero-roles {
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: #d1d5db;
+  margin-bottom: 2rem;
+  max-width: 42rem;
+}
+@media (min-width: 768px) {
+  .hero-roles { font-size: 1.5rem; }
+}
+.hero-roles .dot {
+  margin: 0 0.5rem;
+  color: var(--accent-color);
+}
+
+.hero-description {
+  color: #9ca3af;
+  max-width: 48rem;
+  margin-bottom: 3rem;
+  line-height: 1.8;
+  font-size: 1.125rem;
+}
+
+.hero-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+@media (min-width: 640px) {
+  .hero-buttons { flex-direction: row; }
+}
+
+.icon-transition {
+  transition: transform 0.3s ease;
+}
+.btn:hover .icon-transition {
+  transform: scale(1.1);
+}
+
+.icon-transition-right {
+  transition: transform 0.3s ease;
+}
+.btn:hover .icon-transition-right {
+  transform: translateX(4px);
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.scroll-indicator span {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 3rem;
+  background-color: #1f2937;
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-dot {
+  width: 100%;
+  height: 50%;
+  background-color: var(--accent-color);
+  position: absolute;
+  top: 0;
+}

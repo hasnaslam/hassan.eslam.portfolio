@@ -1,0 +1,134 @@
+/* Contact Section Styles */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .contact-grid {
+    grid-template-columns: 5fr 7fr;
+  }
+}
+
+.contact-info {
+  padding: 3rem;
+}
+
+.contact-info-header {
+  margin-bottom: 3rem;
+}
+
+.contact-icon-large {
+  color: var(--accent-color);
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+}
+
+.contact-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.contact-text {
+  color: #9ca3af;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.contact-icon-wrapper {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(37, 99, 235, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-color);
+  transition: all 0.3s ease;
+}
+
+.contact-item:hover .contact-icon-wrapper {
+  background: var(--accent-color);
+  color: white;
+  transform: scale(1.1);
+}
+
+.contact-social {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.social-btn:hover {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  transform: translateY(-5px);
+}
+
+/* Contact Form */
+.contact-form {
+  padding: 3rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 1.25rem 1.5rem;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  color: white;
+  font-family: var(--font-secondary);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  background: rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+.form-textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 1.25rem;
+  margin-top: 1rem;
+}
