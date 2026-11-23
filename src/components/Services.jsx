@@ -32,7 +32,6 @@ const Services = () => {
                 transition={{ duration: 0.6, delay: service.delay }}
                 className="service-card glass-panel"
               >
-                <div className="service-number">0{index + 1}</div>
                 <h3 className="service-title">{service.title}</h3>
                 <p className="service-desc">{service.desc}</p>
               </motion.div>
