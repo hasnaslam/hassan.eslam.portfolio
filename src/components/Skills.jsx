@@ -2,19 +2,13 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Palette, PenTool, Video, Aperture, Wand2, MonitorPlay, Zap, LayoutTemplate } from 'lucide-react';
 import '../styles/skills.css';
+import { useLang } from '../i18n.jsx';
 
-const skillsData = [
-  { icon: Palette, title: 'Brand Identity', desc: 'Crafting unique visual systems.' },
-  { icon: LayoutTemplate, title: 'Logo Design', desc: 'Memorable and timeless marks.' },
-  { icon: Video, title: 'Motion Graphics', desc: 'Bringing designs to life.' },
-  { icon: MonitorPlay, title: 'Social Media', desc: 'Engaging digital content.' },
-  { icon: Zap, title: 'Advertising', desc: 'High-performing campaigns.' },
-  { icon: PenTool, title: 'Creative Direction', desc: 'Leading visual strategies.' },
-  { icon: Aperture, title: 'Visual Storytelling', desc: 'Narrative-driven design.' },
-  { icon: Wand2, title: 'AI Production', desc: 'Next-gen visual tools.' },
-];
+const skillIcons = [Palette, LayoutTemplate, Video, MonitorPlay, Zap, PenTool, Aperture, Wand2];
 
 const Skills = () => {
+  const { t } = useLang();
+  const skillsData = t.skills.items.map(([title, desc], i) => ({ icon: skillIcons[i], title, desc }));
   return (
     <section className="skills-section section" id="skills">
       <div className="container">
@@ -25,8 +19,8 @@ const Skills = () => {
           transition={{ duration: 0.8 }}
           className="section-title-wrap text-center"
         >
-          <h2 className="section-title">Specializations & Skills</h2>
-          <span className="section-subtitle">My technical expertise</span>
+          <h2 className="section-title">{t.skills.title}</h2>
+          <span className="section-subtitle">{t.skills.sub}</span>
         </motion.div>
 
         <div className="skills-grid">

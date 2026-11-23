@@ -2,8 +2,12 @@ import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Download, X, Mail, MapPin, Globe, Beaker, Layers, Palette, MonitorPlay, Focus, CheckCircle, Target, Clock, Trophy } from 'lucide-react';
 import '../styles/modal.css';
+import { useLang } from '../i18n.jsx';
 
 const ResumeModal = ({ isOpen, onClose }) => {
+  const { t } = useLang();
+  const m = t.modal;
+  const h = t.hero;
   // Handle escape key
   useEffect(() => {
     const handleEsc = (e) => {
@@ -49,7 +53,7 @@ const ResumeModal = ({ isOpen, onClose }) => {
     <AnimatePresence>
       {isOpen && (
         <div className="modal-overlay">
-          <motion.div 
+          <motion.div role="dialog" aria-modal="true" aria-label={m.label}
             className="modal-backdrop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -73,7 +77,7 @@ const ResumeModal = ({ isOpen, onClose }) => {
                 {/* Header Profile Section */}
                 <div className="modal-header">
                   <div className="modal-portrait-wrapper">
-                    <img src="img/profile.jpg" alt="Hassan Eslam" className="modal-portrait" />
+                    <img src="img/profile.webp" alt={t.about.alt} className="modal-portrait" />
                     <div className="portrait-scanner"></div>
                   </div>
                   <div className="modal-title-area">
@@ -82,14 +86,14 @@ const ResumeModal = ({ isOpen, onClose }) => {
                       transition={{ delay: 0.2 }}
                       className="modal-name"
                     >
-                      HASSAN <span className="text-gradient-blue">ESLAM</span>
+                      {h.first.toUpperCase()} <span className="text-gradient-blue">{h.last.toUpperCase()}</span>
                     </motion.h1>
                     <motion.p 
                       variants={contentVariants}
                       transition={{ delay: 0.3 }}
                       className="modal-role text-gradient"
                     >
-                      CREATIVE DESIGNER
+                      {m.role}
                     </motion.p>
                   </div>
                 </div>
@@ -98,67 +102,36 @@ const ResumeModal = ({ isOpen, onClose }) => {
                   {/* Left Column */}
                   <div className="modal-col">
                     <motion.div variants={contentVariants} transition={{ delay: 0.4 }} className="modal-card">
-                      <h3 className="modal-card-title"><Focus size={18} className="mr-2" /> Who I Am</h3>
-                      <p className="modal-text">I create visual experiences that help brands stand out and connect deeply with their audience through thoughtful design and modern technology.</p>
+                      <h3 className="modal-card-title"><Focus size={18} className="mr-2" /> {m.who}</h3>
+                      <p className="modal-text">{m.whoText}</p>
                     </motion.div>
 
                     <motion.div variants={contentVariants} transition={{ delay: 0.5 }} className="modal-card">
-                      <h3 className="modal-card-title"><Palette size={18} className="mr-2" /> Skills</h3>
-                      <ul className="modal-list">
-                        <li>Brand Identity Design</li>
-                        <li>Logo Design</li>
-                        <li>Social Media Design</li>
-                        <li>Advertising Design</li>
-                        <li>Motion Graphics</li>
-                        <li>Visual Storytelling</li>
-                      </ul>
+                      <h3 className="modal-card-title"><Palette size={18} className="mr-2" /> {m.skills}</h3>
+                      <ul className="modal-list">{m.skillList.map((x) => <li key={x}>{x}</li>)}</ul>
                     </motion.div>
 
                     <motion.div variants={contentVariants} transition={{ delay: 0.6 }} className="modal-card">
-                      <h3 className="modal-card-title"><Layers size={18} className="mr-2" /> Tools</h3>
+                      <h3 className="modal-card-title"><Layers size={18} className="mr-2" /> {m.tools}</h3>
                       <div className="tools-grid">
                         <div className="tool-badge">Ps</div>
                         <div className="tool-badge ai">Ai</div>
                         <div className="tool-badge ae">Ae</div>
                         <div className="tool-badge pr">Pr</div>
-                        <div className="tool-item">Blender</div>
-                        <div className="tool-item">Figma</div>
                       </div>
                     </motion.div>
                   </div>
 
                   {/* Right Column */}
                   <div className="modal-col">
-                    <motion.div variants={contentVariants} transition={{ delay: 0.4 }} className="modal-card">
-                      <h3 className="modal-card-title"><Trophy size={18} className="mr-2" /> Achievements</h3>
-                      <div className="achievements-list">
-                        <div className="achievement-item">
-                          <span className="achievement-num text-gradient-blue">100+</span>
-                          <span className="achievement-label">Projects Completed</span>
-                        </div>
-                        <div className="achievement-item">
-                          <span className="achievement-num text-gradient-blue">50+</span>
-                          <span className="achievement-label">Satisfied Clients</span>
-                        </div>
-                        <div className="achievement-item">
-                          <span className="achievement-num text-gradient-blue">8+</span>
-                          <span className="achievement-label">Years Experience</span>
-                        </div>
-                      </div>
-                    </motion.div>
 
                     <motion.div variants={contentVariants} transition={{ delay: 0.5 }} className="modal-card">
-                      <h3 className="modal-card-title"><Target size={18} className="mr-2" /> Work Style</h3>
-                      <ul className="modal-list-grid">
-                        <li><CheckCircle size={14} className="text-blue-500 mr-2 inline" /> Strategic Thinking</li>
-                        <li><CheckCircle size={14} className="text-blue-500 mr-2 inline" /> Clean & Modern</li>
-                        <li><CheckCircle size={14} className="text-blue-500 mr-2 inline" /> Detail Oriented</li>
-                        <li><CheckCircle size={14} className="text-blue-500 mr-2 inline" /> Deadline Driven</li>
-                      </ul>
+                      <h3 className="modal-card-title"><Target size={18} className="mr-2" /> {m.style}</h3>
+                      <ul className="modal-list-grid">{m.styleList.map((x) => <li key={x}><CheckCircle size={14} className="text-blue-500 mr-2 inline" /> {x}</li>)}</ul>
                     </motion.div>
                     
                     <motion.div variants={contentVariants} transition={{ delay: 0.6 }} className="modal-card">
-                      <h3 className="modal-card-title"><Mail size={18} className="mr-2" /> Contact</h3>
+                      <h3 className="modal-card-title"><Mail size={18} className="mr-2" /> {m.contact}</h3>
                       <div className="modal-contact-links">
                         <a href="mailto:hasneslamhasn@gmail.com" className="modal-link">hasneslamhasn@gmail.com</a>
                         <a href="tel:+201033879807" className="modal-link">+20 103 387 9807</a>
@@ -174,11 +147,7 @@ const ResumeModal = ({ isOpen, onClose }) => {
                   className="modal-footer"
                 >
                   <button className="btn btn-secondary interactive" onClick={onClose}>
-                    Close
-                  </button>
-                  <button className="btn btn-primary interactive">
-                    <Download size={18} />
-                    Download PDF
+                    {m.close}
                   </button>
                 </motion.div>
               </div>

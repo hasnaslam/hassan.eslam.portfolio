@@ -2,53 +2,44 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
 import '../styles/projects.css';
+import { useLang } from '../i18n.jsx';
 
 const projectsData = [
   {
     title: 'Logo Motion Reel 2025',
-    category: 'Motion Graphics',
-    image: 'img/Logo Motion Reel 2025.jpg',
+    image: 'img/Logo Motion Reel 2025.webp',
     link: 'https://www.behance.net/gallery/232436101/Logo-Motion-Reel-2025-Animated-Brand-Identities',
-    description: 'A showcase of animated brand identities, bringing logos to life through premium and cinematic motion graphics.'
   },
   {
     title: 'Juice Ads Campaign',
-    category: 'Advertising',
-    image: 'img/Juice Ads Campaign.jpg',
+    image: 'img/Juice Ads Campaign.webp',
     link: 'https://www.behance.net/gallery/160257979/Juice-Ads-Campaign',
-    description: 'Complete visual identity and social media campaign for a fresh juice brand, including advertising creatives and marketing visuals.'
   },
   {
     title: 'Motion Graphic',
-    category: 'Animation',
-    image: 'img/Motion Graphic.jpg',
+    image: 'img/Motion Graphic.webp',
     link: 'https://www.behance.net/gallery/173491673/Motion-Graphic-',
-    description: 'Engaging and dynamic motion graphics designed for social media and commercial advertising campaigns.'
   },
   {
     title: 'Food Delivery Campaign',
-    category: 'Social Media',
-    image: 'img/Food Delivery Campaign.jpg',
+    image: 'img/Food Delivery Campaign.webp',
     link: 'https://www.behance.net/gallery/244156813/-Food-Delivery-Campaign',
-    description: 'Creative social media advertising campaign and promotional materials tailored for a modern food delivery service.'
   },
   {
     title: 'Luxury Dental Campaign',
-    category: 'Branding',
-    image: 'img/Luxury Dental Campaign.jpg',
+    image: 'img/Luxury Dental Campaign.webp',
     link: 'https://www.behance.net/gallery/247586163/Luxury-Dental-Social-Media-Campaign',
-    description: 'Premium social media campaign for a luxury dental clinic, focusing on elegant typography, high-end visuals, and brand consistency.'
   },
   {
     title: 'Marketing Video',
-    category: 'Video Production',
-    image: 'img/Marketing Video.jpg',
+    image: 'img/Marketing Video.webp',
     link: 'https://www.behance.net/gallery/147901493/Marketing-video',
-    description: 'A high-performing marketing and promotional video designed to increase engagement and deliver measurable business value.'
   }
 ];
 
 const Projects = () => {
+  const { t } = useLang();
+  const p = t.projects;
   return (
     <section className="projects-section section" id="projects">
       <div className="container">
@@ -59,12 +50,14 @@ const Projects = () => {
           transition={{ duration: 0.8 }}
           className="section-title-wrap text-center"
         >
-          <h2 className="section-title">Featured Projects</h2>
-          <span className="section-subtitle">My recent premium works</span>
+          <h2 className="section-title">{p.title}</h2>
+          <span className="section-subtitle">{p.sub}</span>
         </motion.div>
 
         <div className="projects-grid">
-          {projectsData.map((project, index) => (
+          {projectsData.map((base, index) => {
+            const project = { ...base, category: p.items[index][0], description: p.items[index][1] };
+            return (
             <motion.a
               href={project.link}
               target="_blank"
@@ -77,10 +70,10 @@ const Projects = () => {
               className="project-card glass-panel interactive"
             >
               <div className="project-image-wrapper">
-                <img src={project.image} alt={project.title} className="project-img" />
+                <img src={project.image} alt={`${project.title} (${project.category}) ${p.cover}`} className="project-img" loading="lazy" decoding="async" />
                 <div className="project-overlay">
                   <div className="project-view-btn">
-                    <span>View Project</span>
+                    <span>{p.view}</span>
                     <ExternalLink size={16} />
                   </div>
                 </div>
@@ -91,7 +84,8 @@ const Projects = () => {
                 <p className="project-description">{project.description}</p>
               </div>
             </motion.a>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

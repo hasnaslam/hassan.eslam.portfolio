@@ -2,8 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Quote } from 'lucide-react';
 import '../styles/services.css';
+import { useLang } from '../i18n.jsx';
 
 const Services = () => {
+  const { t } = useLang();
+  const v = t.services;
   return (
     <>
       <section className="services-section section" id="services">
@@ -15,17 +18,12 @@ const Services = () => {
             transition={{ duration: 0.8 }}
             className="section-title-wrap text-center"
           >
-            <h2 className="section-title">What I Do</h2>
-            <span className="section-subtitle">My core services</span>
+            <h2 className="section-title">{v.title}</h2>
+            <span className="section-subtitle">{v.sub}</span>
           </motion.div>
 
           <div className="services-grid">
-            {[
-              { title: 'Brand Identity & Logo', desc: 'Crafting complete visual identities, logo systems, and brand guidelines for startups and established businesses.', delay: 0 },
-              { title: 'Motion Graphics', desc: 'Producing engaging motion graphics tailored for social media and commercial advertising.', delay: 0.1 },
-              { title: 'Advertising Campaign', desc: 'High-end advertising design and product visualization delivering measurable business value.', delay: 0.2 },
-              { title: 'Social Media Design', desc: 'Designing high-performing social media content and promotional materials for various industries.', delay: 0.3 }
-            ].map((service, index) => (
+            {v.items.map(([title, desc], index) => { const service = { title, desc, delay: index * 0.1 }; return (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
@@ -38,7 +36,7 @@ const Services = () => {
                 <h3 className="service-title">{service.title}</h3>
                 <p className="service-desc">{service.desc}</p>
               </motion.div>
-            ))}
+            ); })}
           </div>
         </div>
       </section>
@@ -54,10 +52,8 @@ const Services = () => {
             className="objective-content glass-panel"
           >
             <Quote size={40} className="quote-icon" />
-            <h2 className="objective-title">Career Objective</h2>
-            <p className="objective-text">
-              "To craft world-class visual identities and advertising experiences that empower brands to stand out in competitive markets through strategic creativity, premium design, and innovative AI-powered production."
-            </p>
+            <h2 className="objective-title">{v.objTitle}</h2>
+            <p className="objective-text">{v.obj}</p>
           </motion.div>
         </div>
       </section>

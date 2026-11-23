@@ -1,30 +1,31 @@
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FileText, ArrowRight } from 'lucide-react';
+import '../styles/hero.css';
+import { useLang } from '../i18n.jsx';
 
 const Particles = () => {
+  const reduce = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const items = useMemo(() => [...Array(reduce ? 0 : 12)].map(() => ({ s: Math.random() * 4 + 1, t: Math.random() * 100, l: Math.random() * 100, dy: -100 - Math.random() * 100, dx: Math.random() * 50 - 25, d: Math.random() * 10 + 10, de: Math.random() * 10 })), [reduce]);
   return (
-    <div className="particles-container">
-      {[...Array(20)].map((_, i) => (
+    <div className="particles-container" aria-hidden="true">
+      {items.map((p, i) => (
         <motion.div
           key={i}
           className="particle"
           style={{
-            width: Math.random() * 4 + 1 + 'px',
-            height: Math.random() * 4 + 1 + 'px',
-            top: Math.random() * 100 + '%',
-            left: Math.random() * 100 + '%',
+            width: p.s + 'px', height: p.s + 'px', top: p.t + '%', left: p.l + '%',
           }}
           animate={{
-            y: [0, -100 - Math.random() * 100],
-            x: Math.random() * 50 - 25,
+            y: [0, p.dy],
+            x: p.dx,
             opacity: [0, 0.5, 0],
           }}
           transition={{
-            duration: Math.random() * 10 + 10,
+            duration: p.d,
             repeat: Infinity,
             ease: "linear",
-            delay: Math.random() * 10,
+            delay: p.de,
           }}
         />
       ))}
@@ -33,6 +34,8 @@ const Particles = () => {
 };
 
 const Hero = ({ onOpenResume }) => {
+  const { t } = useLang();
+  const h = t.hero;
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -53,7 +56,7 @@ const Hero = ({ onOpenResume }) => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="glass-panel hero-badge"
         >
-          <span className="text-gradient-blue">Premium Visual Experiences</span>
+          <span className="text-gradient-blue">{h.badge}</span>
         </motion.div>
 
         <motion.h2 
@@ -62,48 +65,48 @@ const Hero = ({ onOpenResume }) => {
           transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
           className="hero-greeting"
         >
-          Hello, I'm
+          {h.hello}
         </motion.h2>
         
         <motion.h1 
           initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+          transition={{ duration: 0.6, delay: 0.05, ease: "easeOut" }}
           className="hero-title"
         >
-          Hassan <span className="text-gradient-blue">Eslam</span>
+          {h.first} <span className="text-gradient-blue">{h.last}</span>
         </motion.h1>
         
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
           className="hero-roles"
         >
-          Creative Designer <span className="dot">•</span> Brand Identity <span className="dot">•</span> Motion Graphics
+          {h.roles.map((r, i) => (<React.Fragment key={r}>{i > 0 && <span className="dot">•</span>} {r} </React.Fragment>))}
         </motion.div>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          transition={{ duration: 0.5, delay: 0.15 }}
           className="hero-description"
         >
-          Specializing in branding, motion graphics, advertising, and AI-powered visual production. I create premium visual experiences that transform ideas into memorable brands and high-performing marketing campaigns.
+          {h.desc}
         </motion.p>
         
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
+          transition={{ duration: 0.5, delay: 0.25 }}
           className="hero-buttons"
         >
           <button onClick={onOpenResume} className="btn btn-primary interactive group">
             <FileText size={20} className="icon-transition" />
-            Resume
+            {h.resume}
           </button>
           <a href="#projects" className="btn btn-secondary interactive group">
-            View Projects
+            {h.projects}
             <ArrowRight size={20} className="icon-transition-right" />
           </a>
         </motion.div>
@@ -116,7 +119,7 @@ const Hero = ({ onOpenResume }) => {
         transition={{ delay: 1.5, duration: 1 }}
         className="scroll-indicator"
       >
-        <span>Scroll</span>
+        <span>{h.scroll}</span>
         <div className="scroll-line">
           <motion.div 
             className="scroll-dot"

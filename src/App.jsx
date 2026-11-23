@@ -1,38 +1,48 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import CustomCursor from './components/CustomCursor';
 import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
-import Experience from './components/Experience';
+import { useLang } from './i18n.jsx';
+import Nav from './components/Nav';
 import Services from './components/Services';
 import Contact from './components/Contact';
-import ResumeModal from './components/ResumeModal';
+const ResumeModal = lazy(() => import('./components/ResumeModal'));
+
+function useResumeLoaded(open) {
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => { if (open) setLoaded(true); }, [open]);
+  return loaded;
+}
 
 function App() {
+  const { t } = useLang();
   const [isResumeOpen, setIsResumeOpen] = useState(false);
+  const resumeLoaded = useResumeLoaded(isResumeOpen);
 
   return (
     <>
+      <a href="#projects" className="skip-link">{t.skip}</a>
       <div className="noise-overlay"></div>
       <div className="bg-gradient"></div>
       <div className="glow-orb orb-1"></div>
       <div className="glow-orb orb-2"></div>
       
       <CustomCursor />
+      <Nav />
       
-      <main>
+      <main id="main">
         <Hero onOpenResume={() => setIsResumeOpen(true)} />
         <About />
         <Skills />
         <Projects />
-        <Experience />
         <Services />
         <Contact />
       </main>
 
-      <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
+      {resumeLoaded && <Suspense fallback={null}><ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} /></Suspense>}
     </>
   );
 }
